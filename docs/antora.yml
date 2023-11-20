@@ -1,0 +1,5 @@
+name: quarkus-code-server
+title: Quarkus Code Server
+version: dev
+nav:
+  - modules/ROOT/nav.adoc
