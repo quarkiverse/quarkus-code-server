@@ -2,24 +2,28 @@
 
 [![Version](https://img.shields.io/maven-central/v/io.quarkiverse.code-server/quarkus-code-server?logo=apache-maven&style=flat-square)](https://search.maven.org/artifact/io.quarkiverse.code-server/quarkus-code-server)
 
-## Welcome to Quarkiverse!
+This is an extension that runs code-server as a devservice.
 
-Congratulations and thank you for creating a new Quarkus extension project in Quarkiverse!
+It is for now a proof of concept, and it is not meant to be used in production dev mode.
 
-Feel free to replace this content with the proper description of your new project and necessary instructions how to use and contribute to it.
+## How to use it
 
-You can find the basic info, Quarkiverse policies and conventions in [the Quarkiverse wiki](https://github.com/quarkiverse/quarkiverse/wiki).
+1. Build the extension: `mvn install`
+2. Add it to your Quarkus project: `quarkus ext add io.quarkiverse.code-server:quarkus-code-server:999-SNAPSHOT`
+3. Run in dev mode: `quarkus dev`
+4. Will print in console the URL to access code-server
+    Also available in dev-ui.
 
-In case you are creating a Quarkus extension project for the first time, please follow [Building My First Extension](https://quarkus.io/guides/building-my-first-extension) guide.
 
-Other useful articles related to Quarkus extension development can be found under the [Writing Extensions](https://quarkus.io/guides/#writing-extensions) guide category on the [Quarkus.io](https://quarkus.io) website.
+## Challenges
 
-Thanks again, good luck and have fun!
+- [x] Run code-server as a devservice
+- [ ] Add url link in dev ui tile view
+- [ ] Embed code-server URL in dev-ui
+- [ ] Pre-install extensions
+- [ ] Pre-install JDK within the container
+- [ ] Custom build of the codeserver image with the above built?
+- [x] Use linuxserver/code-server image instead of codeserver/code-server? (config via env instead of file)
 
-## Documentation
+...with the above challenges should we consider to use a different approach? (e.g. install codium with the right extensions and just re-use users local environment?)
 
-The documentation for this extension should be maintained as part of this repository and it is stored in the `docs/` directory.
-
-The layout should follow the [Antora's Standard File and Directory Set](https://docs.antora.org/antora/2.3/standard-directories/).
-
-Once the docs are ready to be published, please open a PR including this repository in the [Quarkiverse Docs Antora playbook](https://github.com/quarkiverse/quarkiverse-docs/blob/main/antora-playbook.yml#L7). See an example [here](https://github.com/quarkiverse/quarkiverse-docs/pull/1).
