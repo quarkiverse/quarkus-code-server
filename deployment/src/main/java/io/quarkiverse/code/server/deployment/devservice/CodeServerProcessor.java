@@ -41,7 +41,7 @@ public class CodeServerProcessor {
     private static final int CODE_SERVER_PORT = 8443; // inside the container
     static final String CODE_SERVER_URL_CONFIG = "quarkus.code-server.devservices.url";
 
-    private static final String FEATURE = "code-server";
+    static final String FEATURE = "code-server";
     /**
      * Label to add to shared Dev Service for Code Server running in containers.
      * This allows other applications to discover the running service and use it instead of starting a new instance.
@@ -122,7 +122,7 @@ public class CodeServerProcessor {
         return devService.toBuildItem();
     }
 
-    private Map<String, String> getRegistryUrlConfigs(String baseUrl) {
+    private Map<String, String> getCodeServerURLConfig(String baseUrl) {
         return Map.of(
                 CODE_SERVER_URL_CONFIG, baseUrl + "?folder=/home/coder/project");
     }
@@ -159,7 +159,7 @@ public class CodeServerProcessor {
                 .map(address -> new RunningDevService(FEATURE,
                         address.getId(), null,
                         // address does not have the URL Scheme - just the host:port, so prepend http://
-                        getRegistryUrlConfigs("http://" + address.getUrl())))
+                        getCodeServerURLConfig("http://" + address.getUrl())))
                 .orElseGet(() -> {
 
                     Map<String, String> env = new HashMap<>();
@@ -189,7 +189,7 @@ public class CodeServerProcessor {
                     container.start();
 
                     return new RunningDevService(FEATURE, container.getContainerId(),
-                            container::close, getRegistryUrlConfigs(container.getUrl()));
+                            container::close, getCodeServerURLConfig(container.getUrl()));
                 });
     }
 

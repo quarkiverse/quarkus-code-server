@@ -4,6 +4,9 @@ metadata:
 #  keywords:
 #    - code-server
 #  guide: https://quarkiverse.github.io/quarkiverse-docs/code-server/dev/ # To create and publish this guide, see https://github.com/quarkiverse/quarkiverse/wiki#documenting-your-extension
+   guide: https://github.com/maxandersen/quarkus-code-server
 #  categories:
 #    - "miscellaneous"
-#  status: "preview"
+   status: "experimental"
+   config: 
+   - "quarkus.code-server."

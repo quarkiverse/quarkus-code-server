@@ -26,7 +26,8 @@ public class CodeServerDevServiceBuildTimeConfig {
 
     /**
      * The code-server image to use.
-     *
+     * Uses linuxserver/code-server by default because it allows configuration by environment variables
+     * as opposed requiring mounting files.
      */
     @ConfigItem(defaultValue = "lscr.io/linuxserver/code-server:latest")
     public String imageName;
