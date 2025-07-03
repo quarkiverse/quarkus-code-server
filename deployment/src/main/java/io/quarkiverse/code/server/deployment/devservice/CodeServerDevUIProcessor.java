@@ -6,14 +6,14 @@ import io.quarkus.deployment.IsDevelopment;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.BuildSteps;
 import io.quarkus.deployment.dev.devservices.DevServiceDescriptionBuildItem;
-import io.quarkus.deployment.dev.devservices.GlobalDevServicesConfig;
+import io.quarkus.deployment.dev.devservices.DevServicesConfig;
 import io.quarkus.devui.spi.page.CardPageBuildItem;
 import io.quarkus.devui.spi.page.Page;
 
 /**
  * Starts Code Server as dev service if needed.
  */
-@BuildSteps(onlyIf = { IsDevelopment.class, GlobalDevServicesConfig.Enabled.class })
+@BuildSteps(onlyIf = { IsDevelopment.class, DevServicesConfig.Enabled.class })
 public class CodeServerDevUIProcessor {
 
     @BuildStep(onlyIf = IsDevelopment.class)
