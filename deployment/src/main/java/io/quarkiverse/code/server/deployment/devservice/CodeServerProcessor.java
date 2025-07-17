@@ -207,12 +207,12 @@ public class CodeServerProcessor {
         private final File workspaceDir;
 
         public CodeServerDevServiceCfg(CodeServerDevServiceBuildTimeConfig config, File workspaceDir) {
-            this.devServicesEnabled = config.enabled.orElse(true);
-            this.imageName = config.imageName;
-            this.fixedExposedPort = config.port.orElse(0);
-            this.shared = config.shared;
-            this.serviceName = config.serviceName;
-            this.containerEnv = config.containerEnv;
+            this.devServicesEnabled = config.enabled().orElse(true);
+            this.imageName = config.imageName();
+            this.fixedExposedPort = config.port().orElse(0);
+            this.shared = config.shared();
+            this.serviceName = config.serviceName();
+            this.containerEnv = config.containerEnv();
             this.workspaceDir = workspaceDir;
         }
 

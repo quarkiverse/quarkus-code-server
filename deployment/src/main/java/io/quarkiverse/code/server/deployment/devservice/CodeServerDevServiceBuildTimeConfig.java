@@ -3,34 +3,34 @@ package io.quarkiverse.code.server.deployment.devservice;
 import java.util.Map;
 import java.util.Optional;
 
-import io.quarkus.runtime.annotations.ConfigItem;
 import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;
+import io.smallrye.config.ConfigMapping;
+import io.smallrye.config.WithDefault;
 
-@ConfigRoot(name = "quarkus.code-server.devservices", phase = ConfigPhase.BUILD_TIME)
-public class CodeServerDevServiceBuildTimeConfig {
+@ConfigRoot(phase = ConfigPhase.BUILD_TIME)
+@ConfigMapping(prefix = "quarkus.code-server.devservices")
+public interface CodeServerDevServiceBuildTimeConfig {
 
     /**
      * Whether to enable the code server dev service.
      */
-    @ConfigItem
-    public Optional<Boolean> enabled = Optional.empty();
+    Optional<Boolean> enabled();
 
     /**
      * Optional fixed port the dev service will listen to.
      * <p>
      * If not defined, the port will be chosen randomly.
      */
-    @ConfigItem
-    public Optional<Integer> port;
+    Optional<Integer> port();
 
     /**
      * The code-server image to use.
      * Uses linuxserver/code-server by default because it allows configuration by environment variables
      * as opposed requiring mounting files.
      */
-    @ConfigItem(defaultValue = "lscr.io/linuxserver/code-server:latest")
-    public String imageName;
+    @WithDefault("lscr.io/linuxserver/code-server:latest")
+    String imageName();
 
     /**
      * Indicates if the Code Server instance managed by Quarkus Dev Services is shared.
@@ -43,8 +43,8 @@ public class CodeServerDevServiceBuildTimeConfig {
      * <p>
      * Container sharing is only used in dev mode.
      */
-    @ConfigItem(defaultValue = "false")
-    public boolean shared;
+    @WithDefault("false")
+    boolean shared();
 
     /**
      * The value of the {@code quarkus-dev-service-code-server} label attached to the started container.
@@ -56,13 +56,12 @@ public class CodeServerDevServiceBuildTimeConfig {
      * <p>
      * This property is used when you need multiple shared Apicurio Registry instances.
      */
-    @ConfigItem(defaultValue = "code-server")
-    public String serviceName;
+    @WithDefault("code-server")
+    String serviceName();
 
     /**
      * Environment variables that are passed to the container.
      */
-    @ConfigItem
-    public Map<String, String> containerEnv;
+    Map<String, String> containerEnv();
 
 }
