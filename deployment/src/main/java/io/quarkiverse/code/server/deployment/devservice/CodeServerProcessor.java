@@ -23,7 +23,7 @@ import io.quarkus.deployment.builditem.DockerStatusBuildItem;
 import io.quarkus.deployment.builditem.LaunchModeBuildItem;
 import io.quarkus.deployment.console.ConsoleInstalledBuildItem;
 import io.quarkus.deployment.console.StartupLogCompressor;
-import io.quarkus.deployment.dev.devservices.GlobalDevServicesConfig;
+import io.quarkus.deployment.dev.devservices.DevServicesConfig;
 import io.quarkus.deployment.logging.LoggingSetupBuildItem;
 import io.quarkus.deployment.pkg.builditem.CurateOutcomeBuildItem;
 import io.quarkus.devservices.common.ConfigureUtil;
@@ -33,7 +33,7 @@ import io.quarkus.runtime.LaunchMode;
 /**
  * Starts Code Server as dev service if needed.
  */
-@BuildSteps(onlyIf = { IsDevelopment.class, GlobalDevServicesConfig.Enabled.class })
+@BuildSteps(onlyIf = { IsDevelopment.class, DevServicesConfig.Enabled.class })
 public class CodeServerProcessor {
 
     private static final Logger log = Logger.getLogger(CodeServerProcessor.class);
@@ -63,7 +63,7 @@ public class CodeServerProcessor {
             Optional<ConsoleInstalledBuildItem> consoleInstalledBuildItem,
             CuratedApplicationShutdownBuildItem closeBuildItem,
             CurateOutcomeBuildItem curateOutcomeBuildItem,
-            LoggingSetupBuildItem loggingSetupBuildItem, GlobalDevServicesConfig devServicesConfig) {
+            LoggingSetupBuildItem loggingSetupBuildItem, DevServicesConfig devServicesConfig) {
 
         File workspaceDir = curateOutcomeBuildItem.getApplicationModel().getAppArtifact().getWorkspaceModule().getModuleDir();
 
@@ -85,7 +85,7 @@ public class CodeServerProcessor {
 
         try {
             devService = startCodeServer(dockerStatusBuildItem, configuration, launchMode,
-                    !devServicesSharedNetworkBuildItem.isEmpty(), devServicesConfig.timeout);
+                    !devServicesSharedNetworkBuildItem.isEmpty(), devServicesConfig.timeout());
             compressor.close();
         } catch (Throwable t) {
             compressor.closeAndDumpCaptured();
@@ -207,12 +207,12 @@ public class CodeServerProcessor {
         private final File workspaceDir;
 
         public CodeServerDevServiceCfg(CodeServerDevServiceBuildTimeConfig config, File workspaceDir) {
-            this.devServicesEnabled = config.enabled.orElse(true);
-            this.imageName = config.imageName;
-            this.fixedExposedPort = config.port.orElse(0);
-            this.shared = config.shared;
-            this.serviceName = config.serviceName;
-            this.containerEnv = config.containerEnv;
+            this.devServicesEnabled = config.enabled().orElse(true);
+            this.imageName = config.imageName();
+            this.fixedExposedPort = config.port().orElse(0);
+            this.shared = config.shared();
+            this.serviceName = config.serviceName();
+            this.containerEnv = config.containerEnv();
             this.workspaceDir = workspaceDir;
         }
 
